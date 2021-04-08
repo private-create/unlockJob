@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev
+
+
+#business properties
+  business:
+    properties:
+      # 查询以后多久的班次以天为单位
+     afterNum: 3
+     #释放任务多久执行一次

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.by.mapper.LinerseatMapper">
+
+    <resultMap id="linerseatMap" type="com.by.entity.Linerseat">
+        <result column="linerseat_seq" property="linerseatSeq"></result>
+        <result column="liner_date" property="linerDate"></result>
+        <result column="liner_id" property="linerId"></result>
+        <result column="seat_id" property="seatId"></result>
+        <result column="ticket_id" property="ticketId"></result>
+        <result column="seat_state" property="seatState"></result>
+    </resultMap>
+
+    <select id="queryAbnormal" resultMap="linerseatMap" >
+        select  * from linerseat
+        <where>
+            <if test="currentTime != null and currentTime != '' ">
+                and liner_date >= #{currentTime}
+            </if>
+            <if test="afterTime != null and afterTime != '' ">
+                and liner_date <= #{afterTime}
+            </if>
+            and seat_state=2 and (sale_mac_name is null or sale_mac_name='')
+            and (ticket_id is null or ticket_id='')
+        </where>
+    </select>
+</mapper>
